@@ -2,16 +2,15 @@ package com.example.messenger.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Chat extends BaseEntity {
+public class ChatEntity extends BaseEntity {
     @OneToOne
-    private User user1;
+    private UserEntity userEntity1;
     @OneToOne
-    private User user2;
+    private UserEntity userEntity2;
 
     @ManyToOne
-    private App app;
+    private AppEntity appEntity;
 }

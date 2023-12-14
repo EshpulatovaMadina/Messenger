@@ -1,5 +1,6 @@
 package com.example.messenger.service.jwt;
 
+import com.example.messenger.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
-import uz.pdp.eticket.entity.UserEntity;
 
 import java.util.Date;
 import java.util.Map;

@@ -4,14 +4,14 @@ import com.example.messenger.entity.enums.ContentType;
 import jakarta.persistence.*;
 
 @Entity
-public class Message extends BaseEntity{
+public class MessageEntity extends BaseEntity{
     private String content;
     @Enumerated(EnumType.STRING)
     private ContentType type;
     @ManyToOne
-    private User sender;
+    private UserEntity sender;
     @ManyToOne
-    private Chat chat;
+    private ChatEntity chatEntity;
     @ManyToOne
-    private App app;
+    private AppEntity appEntity;
 }

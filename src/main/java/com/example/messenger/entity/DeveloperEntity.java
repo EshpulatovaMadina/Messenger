@@ -2,17 +2,24 @@ package com.example.messenger.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
-public class Developer extends BaseEntity {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class DeveloperEntity extends BaseEntity {
     @Column(unique = true)
     private String email;
     private String password;
     private String appKey;
-    @OneToMany
-    private List<App> apps;
+//    @OneToMany
+//    private List<AppEntity> appEntities;
 }
