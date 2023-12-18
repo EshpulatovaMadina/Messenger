@@ -1,8 +1,6 @@
 package com.example.messenger.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +17,7 @@ import java.util.Collection;
 @Setter
 public class UserEntity extends BaseEntity implements UserDetails {
     @Column(unique = true)
+    @GeneratedValue
     private Long userId;
     private String name;
     @Column(unique = true)
@@ -30,6 +29,16 @@ public class UserEntity extends BaseEntity implements UserDetails {
     private String photo;
     @ManyToOne
     private AppEntity appEntity;
+
+    @PrePersist
+    public void generateUserId() {
+        // 10 xonali unikal son generatsiya qilish
+        this.userId = generateUniqueId();
+    }
+
+    private Long generateUniqueId() {
+        return 1000000000L + (long) (Math.random() * 900000000L);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
