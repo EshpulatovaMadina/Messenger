@@ -20,5 +20,4 @@ public class UserCreateDto {
     private String email;
     private String password;
     private String bio;
-    private UUID appId;
 }

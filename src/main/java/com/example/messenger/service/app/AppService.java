@@ -12,4 +12,5 @@ public interface AppService {
     AppResponseDto getById(UUID appId);
 
     AppResponseDto save(AppCreateDto appCreateDto);
+//    AppResponseDto parse (AppEntity appEntity);
 }

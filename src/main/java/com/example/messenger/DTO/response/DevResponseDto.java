@@ -16,6 +16,5 @@ public class DevResponseDto {
     private UUID id;
     private String email;
     private String password;
-    private String appKey;
     private List<AppResponseDto> apps;
 }

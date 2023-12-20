@@ -1,9 +1,5 @@
 package com.example.messenger.DTO.response;
 
-import com.example.messenger.entity.AppEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class UserResponseDto {
-
+    private UUID id;
     private Long userId;
     private String name;
     private String username;

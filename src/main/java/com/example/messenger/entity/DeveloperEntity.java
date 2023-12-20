@@ -19,7 +19,7 @@ public class DeveloperEntity extends BaseEntity {
     @Column(unique = true)
     private String email;
     private String password;
-    private String appKey;
-//    @OneToMany
-//    private List<AppEntity> appEntities;
+//    private Integer appKey;
+    @OneToMany
+    private List<AppEntity> appEntities;
 }
