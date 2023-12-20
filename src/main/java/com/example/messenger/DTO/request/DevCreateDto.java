@@ -12,5 +12,5 @@ import lombok.Setter;
 public class DevCreateDto {
     private String email;
     private String password;
-    private String appKey;
+//    private String appKey;
 }

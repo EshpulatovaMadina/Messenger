@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class AppServiceImpl implements AppService{
+public class AppServiceImpl implements AppService {
     private final AppRepository appRepository;
     private final DeveloperService developerService;
     @Override
@@ -45,7 +45,8 @@ public class AppServiceImpl implements AppService{
         );
     }
 
-    private AppResponseDto parse(AppEntity appEntity) {
+
+    public AppResponseDto parse(AppEntity appEntity) {
         return new AppResponseDto(
                 appEntity.getId(),
                 appEntity.getId(),
