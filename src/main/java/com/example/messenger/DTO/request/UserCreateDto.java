@@ -1,14 +1,11 @@
 package com.example.messenger.DTO.request;
 
-import com.example.messenger.entity.AppEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,8 +13,8 @@ import java.util.UUID;
 @Setter
 public class UserCreateDto {
     private String name;
-    private String username;
-    private String email;
+    @Size(min = 4, message = "Password should have at least 4 characters")
     private String password;
-    private String bio;
+    @Email(message = "Please provide a valid email address")
+    private String email;
 }

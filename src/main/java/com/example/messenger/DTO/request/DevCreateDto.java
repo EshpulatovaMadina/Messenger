@@ -1,5 +1,7 @@
 package com.example.messenger.DTO.request;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DevCreateDto {
-    private String email;
+    @Size(min = 4, message = "Password should have at least 4 characters")
     private String password;
-//    private String appKey;
+    @Email(message = "Please provide a valid email address")
+    private String email;
 }

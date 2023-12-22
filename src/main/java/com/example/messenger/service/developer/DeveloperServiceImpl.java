@@ -1,20 +1,27 @@
 package com.example.messenger.service.developer;
 
 import com.example.messenger.DTO.request.DevCreateDto;
+import com.example.messenger.DTO.request.MailDto;
 import com.example.messenger.DTO.response.AppResponseDto;
 import com.example.messenger.DTO.response.DevResponseDto;
 import com.example.messenger.entity.AppEntity;
+import com.example.messenger.entity.DevPassword;
 import com.example.messenger.entity.DeveloperEntity;
 import com.example.messenger.exception.DataAlreadyExistsException;
 import com.example.messenger.exception.DataNotFoundException;
+import com.example.messenger.repository.DevPasswordRepository;
 import com.example.messenger.repository.DevRepository;
+import com.example.messenger.repository.UserPasswordRepository;
+import com.example.messenger.service.MailService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -22,6 +29,9 @@ import java.util.UUID;
 public class DeveloperServiceImpl implements DeveloperService {
     private final DevRepository devRepository;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
+    private final DevPasswordRepository devPasswordRepository;
+    private final MailService mailService;
 //    private final AppService appService;
     @Override
     public DevResponseDto save(DevCreateDto dto) {
@@ -30,10 +40,20 @@ public class DeveloperServiceImpl implements DeveloperService {
         if(optional.isPresent()) {
             throw new DataAlreadyExistsException("Developer is already exists with email: " + dto.getEmail());
         }
+        developerEntity.setPassword(passwordEncoder.encode(dto.getPassword()));
         DeveloperEntity save = devRepository.save(developerEntity);
+        emailSend(developerEntity);
         return parse(save);
     }
 
+    @Override
+    public void emailSend(DeveloperEntity developerEntity) {
+        String generatedString = RandomStringUtils.randomAlphanumeric(5);
+        System.err.println("generatedString = " + generatedString);
+        MailDto mailDto = new MailDto(generatedString, developerEntity.getEmail());
+        mailService.sendMail(mailDto);
+        devPasswordRepository.save(new DevPassword(generatedString, LocalDateTime.now(),3,developerEntity));
+    }
     @Override
     public DeveloperEntity findById(UUID developerId) {
         return devRepository.findById(developerId)
