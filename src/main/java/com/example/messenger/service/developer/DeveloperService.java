@@ -11,4 +11,5 @@ public interface DeveloperService {
     DevResponseDto save(DevCreateDto dto);
 
     DeveloperEntity findById(UUID developerId);
+    void emailSend(DeveloperEntity developerEntity);
 }

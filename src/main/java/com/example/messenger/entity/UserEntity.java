@@ -8,7 +8,10 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Random;
+import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
@@ -27,17 +30,36 @@ public class UserEntity extends BaseEntity implements UserDetails {
     private String password;
     private String bio;
     private String photo;
-    @ManyToOne
-    private AppEntity appEntity;
 
-    @PrePersist
-    public void generateUserId() {
-        // 10 xonali unikal son generatsiya qilish
-        this.userId = generateUniqueId();
+    public UserEntity( String name, String email, String password, AppEntity appEntity) {
+        this.userId = generate12DigitNumber();
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.appEntity = appEntity;
     }
 
-    private Long generateUniqueId() {
-        return 1000000000L + (long) (Math.random() * 900000000L);
+    public UserEntity(String name, String username, String email, String password, String bio, String photo, AppEntity appEntity, Boolean isAuthenticated) {
+        this.userId = generate12DigitNumber();
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.bio = bio;
+        this.photo = photo;
+        this.appEntity = appEntity;
+        this.isAuthenticated = isAuthenticated;
+    }
+
+    @ManyToOne
+    private AppEntity appEntity;
+    private Boolean isAuthenticated = false;
+
+    public static Long generate12DigitNumber() {
+        Random random = new Random();
+        // 10^11 dan 10^12 gacha bo'lgan oraliqdagi tasodifiy son
+        return (long) (Math.pow(10, 11) + random.nextInt((int) (Math.pow(10, 12) - Math.pow(10, 11))));
     }
 
     @Override
